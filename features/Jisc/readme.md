@@ -3,9 +3,9 @@
 This directory holds Gherkin Acceptance Tests for the JISC RDSS project. 
 
 A description of the acceptance tests we intend to develop for the project can
-be found on the project wiki: [Candidate Feature (Gherkin) Set for Automated Workflow] (https://jiscdev.atlassian.net/wiki/display/RDSSAR/Candidate+Feature+%28Gherkin%29+Set+for+Automated+Workflow)
+be found on the project wiki: [Candidate Feature (Gherkin) Set for Automated Workflow](https://jiscdev.atlassian.net/wiki/display/RDSSAR/Candidate+Feature+%28Gherkin%29+Set+for+Automated+Workflow)
 
-For an overview of the entire repo, see the main [readme file for the repo] (https://github.com/JiscRDSS/archivematica-acceptance-tests/blob/dev/issue-11064-remove-project-specifics/README.rst). 
+For an overview of the entire repo, see the main [readme file for the repo](https://github.com/JiscRDSS/archivematica-acceptance-tests/blob/dev/issue-11064-remove-project-specifics/README.rst). 
 (Note that this link currently points to the readme of the Dev branch -- merging this
 into the Master branch is wip due to some minor blocking issues in the public repo)
 
