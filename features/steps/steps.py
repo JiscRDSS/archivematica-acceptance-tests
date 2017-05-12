@@ -11,7 +11,7 @@ MC_EVENT_OUTCOME_DETAIL_NOTE_IMPLEMENTATION_CHECK_PREFIX = \
     'MediaConch implementation check result:'
 MC_EVENT_OUTCOME_DETAIL_NOTE_POLICY_CHECK_PREFIX = \
     'MediaConch policy check result'
-POLICIES_DIR = 'mediaconch-policies'
+POLICIES_DIR = 'etc/mediaconch-policies'
 
 
 class ArchivematicaSeleniumStepsError(Exception):
@@ -530,7 +530,7 @@ def step_impl(context, event_outcome):
 
 
 @given('MediaConch policy file {policy_file} is present in the local'
-       ' mediaconch-policies/ directory')
+       ' etc/mediaconch-policies/ directory')
 def step_impl(context, policy_file):
     assert policy_file in os.listdir(POLICIES_DIR)
 
@@ -583,6 +583,11 @@ def step_impl(context, purpose, policy_file):
         'Video: Matroska: Generic MKV',
         context.am_sel_cli.get_policy_command_description(policy_file)
     )
+
+
+@when('the user closes all {unit_type}')
+def step_impl(context, unit_type):
+    getattr(context.am_sel_cli, 'remove_all_' + unit_type)()
 
 
 @then('policy checks for preservation derivatives micro-service output is'
