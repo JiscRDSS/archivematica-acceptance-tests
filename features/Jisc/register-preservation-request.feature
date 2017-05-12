@@ -7,7 +7,7 @@ Feature: Register Preservation Request
   Following a successful Register Preservation Request for a given RDSS Dataset, Archivematica will Transfer Files and Ingest Metadata for that Dataset
   Determining if the preservation request contains valid file storage location information or compliant payload metadata is out-of-scope for this feature. Instead, this is dealt with in the Transfer Files and Ingest Metadata features. 
 	
-Scenario: Valid Preservation Request Received
+Scenario Outline: Valid Preservation Request Received
   Given that Archivematica is subscribed to MetadataCreate messages from the RDSS Message Broker
   And a MetadataCreate message is sent to the RDSS Message Broker by a RDSS application		
   When <Valid RDSS Message criteria>
@@ -17,7 +17,7 @@ Scenario: Valid Preservation Request Received
     # e.g. "logger -p local0.info -i "[INFO] Message received"
 	
   Examples:
-    | Valid RDSS Message criteria                                            
+    | Valid RDSS Message criteria                                             |                                         
     | The message is serialized in JSON (JavaScript Object Notation) format   |
     | The message size does not exceed 1000kb                                 |
     | The message contains a messageHeader and a messageBody                  |
@@ -26,7 +26,7 @@ Scenario: Valid Preservation Request Received
     | The value of the messageBody payload property is not null               |
     | The value of objectIdentifierValue is not null                          |
 		
-Scenario: Invalid Preservation Request (non-compliant message structure) 
+Scenario Outline: Invalid Preservation Request (non-compliant message structure) 
   Given a preservation request message is received
   When <Invalid RDSS Message criteria>
     # see https://github.com/JiscRDSS/rdss-message-api-docs#message-structure
@@ -35,12 +35,12 @@ Scenario: Invalid Preservation Request (non-compliant message structure)
     # note: currently there is no error code in rdss-messaging-api-docs for non-compliance with message structure (just 004 for invalid headers, maybe expand to include all of the message structure? eg. JSON notation, 1000kb limit).
 
   Examples:
-    | Invalid RDSS Message criteria                                               
+    | Invalid RDSS Message criteria                                               |
     | The message is not serialized in JSON (JavaScript Object Notation) format   |
     | The message size exceeds 1000kb                                             |
     | The message does not contain a messageHeader or a messageBody section       |
     
-Scenario: Invalid Preservation Request (expired message) 
+Scenario Outline: Invalid Preservation Request (expired message) 
   Given that Archivematica is subscribed to MetadataCreate messages from the RDSS Message Broker
   And a MetadataCreate message is sent to the RDSS Message Broker by a RDSS application	
   When <Invalid RDSS Message criteria>
@@ -52,7 +52,7 @@ Scenario: Invalid Preservation Request (expired message)
     | Invalid RDSS Message criteria                                          |
     | The message expiration date has passed before the message was received |
     
-Scenario: Invalid Preservation Request (non-compliant messageBody) 
+Scenario Outline: Invalid Preservation Request (non-compliant messageBody) 
   Given a preservation request message is received
   When <Invalid RDSS Message criteria>
     # see https://github.com/JiscRDSS/rdss-message-api-docs#message-structure
@@ -60,12 +60,12 @@ Scenario: Invalid Preservation Request (non-compliant messageBody)
     # as per https://github.com/JiscRDSS/rdss-message-api-docs#invalid-message-queue
 
   Examples:
-    | Invalid RDSS Message criteria                                               
+    | Invalid RDSS Message criteria                                                 |
     | The messageBody payload content validates against a known RDSS message schema |                           
     | The value of the messageBody payload property is null                         |
     | The value of objectIdentifierValue is null                                    |
     
-Scenario: Invalid Preservation Request (unsupported messageType) 
+Scenario Outline: Invalid Preservation Request (unsupported messageType) 
   Given a preservation request message is received
   When <Invalid RDSS Message criteria>
     # see https://github.com/JiscRDSS/rdss-message-api-docs#message-structure
@@ -73,7 +73,7 @@ Scenario: Invalid Preservation Request (unsupported messageType)
     # as per https://github.com/JiscRDSS/rdss-message-api-docs#invalid-message-queue
 
   Examples:
-    | Invalid RDSS Message criteria                                               
+    | Invalid RDSS Message criteria                                               |
     | The value of the messageClass property is not equivalent to "Command"       |
     | The value of the messageType property is not equivalent to "MetadataCreate" |
  

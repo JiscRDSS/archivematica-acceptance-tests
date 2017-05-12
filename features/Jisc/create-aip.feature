@@ -3,7 +3,7 @@
 # outline etc.
 
 @create-AIP @am16
-Feature: Create Basic AIP with Simple Automated Workflow ddfd
+Feature: Create Basic AIP with Simple Automated Workflow
   Some institutions want to be able to begin preservation (or evaluation of Archivematica) 
   with the minimum set up possible. They will want to provide directories of files (or a data set) to be preserved, and 
   have an Archival Information Package (AIP) created using as much default Archivematica behaviour as possible, 
@@ -55,5 +55,4 @@ Feature: Create Basic AIP with Simple Automated Workflow ddfd
   # 4) in future we should move background steps to a feature file, then define a higher level step for config
       # (e.g. 'given system is configured for simple automation') that can be used in 'functional' features like this one 
   
-  # 5) start adding other scenarios - like; research data set contains a virus; add normalisation; etc. 
-Contact GitHub 
+  # 5) start adding other scenarios - like; research data set contains a virus; add normalisation; etc.  
