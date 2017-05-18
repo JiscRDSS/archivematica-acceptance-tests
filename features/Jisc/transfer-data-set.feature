@@ -1,19 +1,18 @@
 Feature: Transfer Data Set:
-  The preservation system needs to copy the dataset to local storage 
+  The preservation system needs to copy the dataset to local (is this best word?) storage 
   in order to carry out preservation processing. 
 
-Scenario: Successful Transfer
-  Given Archivematica confirms receipt of a Preservation Request
+Scenario: Successful DataSet Transfer
+  Given Archivematica has received a valid Preservation Request
 	# i.e. (currently) a MetadataCreate message	
   When Archivematica initiates the transfer of the dataset
   Then Archivematica creates a new directory called <??> to store the dataset
   And Archivematica copies each file listed in the MetadataCreate message to <??>
-  And Archivematica performs a fixity check using the file's Etag to confirm a successful transfer
-     # we could break this step down more if it helps... e.g.   
-  	 # Archivematica retrieves the Etag checksum for each file 
+  And Archivematica performs a fixity check on each file to confirm a successful transfer  
+  	 # (should these be steps or comments?) Archivematica retrieves the Etag checksum for each file 
   	 # Archivematica calculates the MD5 checksum for the copied file
   	 # Archivematica confirms the Etag checksum matches the MD5 checksum
-  And Archivematica -- creates a log entry confirming successful transfer (???)
+  And Dataset Transfer process (or adapater?) tells archivematica to start the AM Transfer process
   	 # ultimately this info should go in METS file? but maybe we just do a simple log for now? 	
   	    
 # Scope Assumptions for Sprint 3
