@@ -1,18 +1,23 @@
 Feature: Transfer Data Set:
-  The preservation system needs to copy the dataset to local (is this best word?) storage 
-  in order to carry out preservation processing. 
+  The preservation system needs to copy the dataset to a storage location where it can 
+  carry out preservation processing (in order to ensure that access or updates from RDSS
+  users do not interfere with preservation processing). 
 
 Scenario: Successful DataSet Transfer
   Given Archivematica has received a valid Preservation Request
 	# i.e. (currently) a MetadataCreate message	
   When Archivematica initiates the transfer of the dataset
-  Then Archivematica creates a new directory called <??> to store the dataset
-  And Archivematica copies each file listed in the MetadataCreate message to <??>
-  And Archivematica performs a fixity check on each file to confirm a successful transfer  
-  	 # (should these be steps or comments?) Archivematica retrieves the Etag checksum for each file 
-  	 # Archivematica calculates the MD5 checksum for the copied file
-  	 # Archivematica confirms the Etag checksum matches the MD5 checksum
-  And Dataset Transfer process (or adapater?) tells archivematica to start the AM Transfer process
+  	# perhaps we should differentiate between the channel adaptor and Archivematica? e.g.
+	# given archivematica-channel-adaptor has received a valid preservation request
+	# when archivematica-channel-adaptor calls the archivematica api to create transfer
+	# then archivematica creates a transfer record (UUID and name)... and initiates transfer
+  Then Archivematica creates a new directory called to store the dataset
+  And Archivematica copies each file listed in the MetadataCreate message to the new directory
+    # not yet implemented:  
+      # And Archivematica retrieves the Etag checksum for each file 
+      # And Archivematica calculates the MD5 checksum for each copied file
+      # Archivematica confirms the Etag checksum matches the MD5 checksum for each copied file
+  And the Archivematica-channel-adaptor tells archivematica to start the AM Transfer process
   	 # ultimately this info should go in METS file? but maybe we just do a simple log for now? 	
   	    
 # Scope Assumptions for Sprint 3
