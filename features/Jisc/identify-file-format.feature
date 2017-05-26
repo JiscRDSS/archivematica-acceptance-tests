@@ -13,9 +13,9 @@ Scenario Outline: Successful File Identification
   Given a transfer is initiated on directory ~/archivematica-sampledata/SampleTransfers/Images
   When the file identification job is executed
   Then the format of <file_name> is identified as <format> 
-  And the formatName, formatVersion and formatRegistry
+  And the formatName, formatVersion and formatRegistry details (PRONOM + fmt/id) are recorded 
   And a premis event of type Format Identification is recorded for each file
-  And each premis event indicates the program and version number used
+  And each premis event indicates the program and version number used for identification
 
 
   Examples: Files in the Images Transfer
@@ -31,6 +31,7 @@ Scenario Outline: Successful File Identification
   | Landing_zone.jpg                                       | fmt/43    |
   | 799px-Euroleague-LE_Roma_vs_Toulouse_IC-27.bmp         | fmt/116   |
   
+# would like to update the table to provide the formatName and formatVersion, and change 'format' to "PRONOM id" 
   
 # Test Considerations
   # we want to test confirm file identification happened without relying on 
