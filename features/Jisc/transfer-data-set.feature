@@ -21,7 +21,10 @@ Scenario: Successful DataSet Transfer
   And Archivematica copies the dataset from the temporary directory to a processing directory
   And Archivematica provides a response indicating the copy was successful
   And the Archivematica-channel-adaptor tells archivematica to start the AM Transfer process
-    # as per /api/transfer/approve/ described by https://wiki.archivematica.org/Archivematica_API	
+    # as per /api/transfer/approve/ described by https://wiki.archivematica.org/Archivematica_API
+  And Archivematica applies the default processing configuration
+    # currently not working due to: https://github.com/JiscRDSS/archivematica/issues/8
+    # later we must add scenarios where an alternative processing configuration is provided with the dataset
 
 # not yet implemented: (although I'm wondering if this should really be done by channel adaptor at all?)   
       # And Archivematica retrieves the Etag checksum for each file 
