@@ -14,6 +14,8 @@ Scenario: Successful DataSet Transfer
   
   Then archivematica-channel-adaptor calls the archivematica_API to create a transfer
     # as per /api/transfer/start_transfer/ described by https://wiki.archivematica.org/Archivematica_API
+  And Archivematica authenticates the call from the archivematica-channel-adaptor
+    # see https://github.com/JiscRDSS/archivematica/issues/9 for more detail
   And archivematica-channel-adaptor calls the transfer <name?> (where does this come from?)
     # see data mapping for full details 
   And Archivematica copies the dataset from the temporary directory to a processing directory
