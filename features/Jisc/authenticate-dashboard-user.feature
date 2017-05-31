@@ -13,8 +13,7 @@ Scenario: Existing User not logged in to any system
   Given the user enters (or clicks) a URL for the Archivematica dashboard
   And Archivematica determines the user is not already logged in
   
-  When Archivematica asks the user to indicate their Identity Provider
-  And Archivematica redirects the user to the Identify Provider 
+  When Archivematica redirects the user to the Identity Provider
   And the Identity Provider determines the user does not have an existing authenticated session
   
   Then the Identity Provider asks the user for their user name and password
@@ -30,8 +29,7 @@ Scenario: Authenticated User attempts login without authority to use the preserv
   Given the user enters (or clicks) a URL for the Archivematica dashboard
   And Archivematica determines the user is not already logged in
   
-  When Archivematica asks the user to indicate their Identity Provider
-  And Archivematica redirects the user to the Identify Provider 
+  When Archivematica redirects the user to the Identity Provider
   And the Identity Provider determines the user does not have an existing authenticated session
   
   Then the Identity Provider asks the user for their user name and password
@@ -46,8 +44,7 @@ Scenario: Existing User logged in with Identity Provider
   Given the user enters (or clicks) a URL for the Archivematica dashboard
   And Archivematica determines the user is not already logged in
   
-  When Archivematica asks the user to indicate their Identity Provider
-  And Archivematica redirects the user to the Identify Provider 
+  When Archivematica redirects the user to the Identity Provider
   And the Identity Provider determines the user already has an existing authenticated session
   
   Then the Identity Provider redirects the user back to the dashboard
@@ -60,3 +57,8 @@ Scenario: Existing User logged in with Identity Provider
 #       User signing in with non-admin account must not be able to access admin functions
 #       User signing in with admin account must be able to access admin functions 
 #       Authenticated by IdP with correct authorities (eduPersonEntitlement) but does not have AM user account yet
+#
+# Future additions to existing scenarios:
+#   The current implementation is configured to use a single IdP. In future, we will want to support selection
+#   of the correct IdP. So a clause along the following lines should be added to these scenarios:
+#       When Archivematica asks the user to indicate their Identity Provider
