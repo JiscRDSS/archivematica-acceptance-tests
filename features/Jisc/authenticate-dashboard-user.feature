@@ -10,6 +10,7 @@ Feature: Authenticate Dashboard User
   # with behave.
   
 Scenario: Existing User not logged in to any system
+  # a regular user with 'preservation-user' entitlement
   Given the user enters (or clicks) a URL for the Archivematica dashboard
   And Archivematica determines the user is not already logged in
   
@@ -23,6 +24,7 @@ Scenario: Existing User not logged in to any system
   And the Identity Provider redirects the user back to the dashboard
   And Archivematica validates the response from the Identity Provider
   And Archivematica determines the user authorities based on their role
+  And Archivematica determines the user is not able to access admin functions
   And the User is presented with the page of the URL they originally requested
   
 Scenario: Authenticated User attempts login without authority to use the preservation system
@@ -55,8 +57,22 @@ Scenario: Existing User logged in with Identity Provider
   And Archivematica determines the user authorities based on their role
   And the User is presented with the page of the URL they originally requested
 
+Scenario: Admin User not logged in
+  # admin user has 'preservation-admin' entitlement
+  Given the user enters (or clicks) a URL for the Archivematica dashboard
+  And Archivematica determines the user is not already logged in
+  
+  When Archivematica redirects the user to the Identity Provider
+  And the Identity Provider determines the user does not have an existing authenticated session
+  
+  Then the Identity Provider asks the user for their user name and password
+  And the user enters a user name and password that have admin entitlements
+  And the Identity Provider authenticates the (valid) user
+  And the Identity Provider redirects the user back to the dashboard
+  And Archivematica validates the response from the Identity Provider
+  And Archivematica determines the user is able to access admin functions
+  And the User is presented with the page of the URL they originally requested
+
 # Other Scenarios to be completed: 
 #       Existing user attempts to use expired session
-#       User signing in with non-admin account must not be able to access admin functions
-#       User signing in with admin account must be able to access admin functions 
 #       Authenticated by IdP with correct authorities (eduPersonEntitlement) but does not have AM user account yet
