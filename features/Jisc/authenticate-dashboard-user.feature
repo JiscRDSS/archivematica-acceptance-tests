@@ -67,21 +67,26 @@ Scenario: Preservation-User with existing IdP session logs in (Alice)
   And Alice is logged in with no admin privileges
   And Alice is presented with the default transfer page
 
-Scenario: Admin User not logged in
-  # admin user has 'preservation-admin' entitlement
-  Given the user enters (or clicks) a URL for the Archivematica dashboard
-  And Archivematica determines the user is not already logged in
+Scenario: Preservation-Admin logs in correct credentials (Bert)
+  Given Bert has an existing account with his identity provider 
+  And Bert has the entitlement "preservation-admin"
+  And Bert has an existing Archivematica user account 
+  And Bert is not already logged in to Archivematica
   
-  When Archivematica redirects the user to the Identity Provider
-  And the Identity Provider determines the user does not have an existing authenticated session
+  When Bert enters (or clicks) a URL for the Archivematica dashboard
+  And Archivematica determines Bert is not already logged in
+  And Archivematica redirects Bert to the Identity Provider
+  And the Identity Provider determines the Bert does not have an existing authenticated session
   
-  Then the Identity Provider asks the user for their user name and password
-  And the user enters a user name and password that have admin entitlements
-  And the Identity Provider authenticates the (valid) user
-  And the Identity Provider redirects the user back to the dashboard
+  Then the Identity Provider presents a login page
+  And Bert enters his user name and password
+  And the Identity Provider authenticates Bert
+  And the Identity Provider presents an Information Release consent page
+  And Bert selects the option "Ask me again at next login" and clicks "accept"
+  And the Identity Provider redirects Bert to Archivematica
   And Archivematica validates the response from the Identity Provider
-  And Archivematica determines the user is able to access admin functions
-  And the User is presented with the page of the URL they originally requested
+  And Bert is logged in with admin privileges
+  And Bert is presented with the default transfer page
 
 # Other Scenarios to be completed: 
 #       Existing user attempts to use expired session
