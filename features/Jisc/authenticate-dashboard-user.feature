@@ -67,6 +67,8 @@ Scenario: Preservation-User with existing IdP session logs in (Alice)
   
   Then the Identity Provider presents an Information Release consent page
   And Alice selects the option "Ask me again at next login" and clicks "accept"
+      # these 2 steps will happen if user has previously chosen to ask for consent 
+      # at next login. If user chose to remember consent this step is skipped
   And the Identity Provider redirects Alice to Archivematica
   And Archivematica validates the response from the Identity Provider
   And Alice is logged in with no admin privileges
