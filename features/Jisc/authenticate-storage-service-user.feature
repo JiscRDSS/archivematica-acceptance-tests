@@ -11,7 +11,7 @@ Scenario: Preservation-User logs in with correct credentials
     And <user> has an existing Storage Service user account 
     And <user> is not already logged in to Storage Service
   
-  When <user> enters (or clicks) a URL for the Archivematica dashboard
+  When <user> enters (or clicks) a URL for the Archivematica Storage Service
     And Storage Service determines <user> is not already logged in
     And Storage Service redirects <user> to the Identity Provider
     And the Identity Provider determines the <user> does not have an existing authenticated session
@@ -24,7 +24,7 @@ Scenario: Preservation-User logs in with correct credentials
     And the Identity Provider redirects <user> to Storage Service
     And Storage Service validates the response from the Identity Provider
     And <user> is logged in with <role> privileges
-    And <user> is presented with the default transfer page 
+    And <user> is presented with the storage service home page
     
   Examples:
     | user  | username | password | entitlement        | role       |
@@ -36,7 +36,7 @@ Scenario: IdP user without credentials attempts login (Charlie)
   And Charlie does not have "preservation-user" or "preservation-admin" entitlements
   And Charlie is not already logged in to his identity provider
   
-  When Charlie enters (or clicks) a URL for the Archivematica dashboard
+  When Charlie enters (or clicks) a URL for the Archivematica Storage Service
   And Storage Service determines Charlie is not already logged in
   And Storage Service redirects Charlie to the Identity Provider
   And the Identity Provider determines Charlie does not have an existing authenticated session
@@ -46,7 +46,7 @@ Scenario: IdP user without credentials attempts login (Charlie)
   And the Identity Provider authenticates Charlie
   And the Identity Provider presents an Information Release consent page
   And Charlie selects the option "Ask me again at next login" and clicks "accept"
-  And the Identity Provider redirects the user back to the dashboard
+  And the Identity Provider redirects the user back to the storage service
   And the Charlie is presented with an "Access Denied" page informing them to contact their administrator 
   
 Scenario: Preservation-User with existing IdP session logs in (Alice)
@@ -56,7 +56,7 @@ Scenario: Preservation-User with existing IdP session logs in (Alice)
   And Alice is not already logged in to Storage Service
   And Alice IS logged in with her Identity Provider
   
-  When Alice enters (or clicks) a URL for the Archivematica dashboard
+  When Alice enters (or clicks) a URL for the Archivematica Storage Service
   And Storage Service determines Alice is not already logged in
   And Storage Service redirects the user to the Identity Provider
   And the Identity Provider determines Alice already has an existing authenticated session
@@ -68,4 +68,4 @@ Scenario: Preservation-User with existing IdP session logs in (Alice)
   And the Identity Provider redirects Alice to Storage Service
   And Storage Service validates the response from the Identity Provider
   And Alice is logged in with no admin privileges
-  And Alice is presented with the default transfer page
+  And Alice is presented with the storage service home page
