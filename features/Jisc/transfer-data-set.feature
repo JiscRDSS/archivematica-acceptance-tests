@@ -7,24 +7,19 @@ Scenario: Successful DataSet Transfer
   Given archivematica_channel_adaptor has received a valid Preservation Request
 	# as described by register-preservation-request.feature	
   
-  When archivematica_channel_adaptor creates a temporary directory named after (??)
+  When archivematica_channel_adaptor creates a temporary directory inside the standardTransfer directory
     # in the archivematica_transfer_deposit_dir (as per root.go)
-    # directory will be visible in Transfer tab; could be manually processed if there are errors downstream
   And archivematica_channel_adaptor copies each file to the temporary directory
   
   Then archivematica-channel-adaptor calls the archivematica_API to create a transfer
     # as per /api/transfer/start_transfer/ described by https://wiki.archivematica.org/Archivematica_API
   And Archivematica authenticates the call from the archivematica-channel-adaptor
     # see https://github.com/JiscRDSS/archivematica/issues/9 for more detail
-  And archivematica-channel-adaptor calls the transfer <name?> (where does this come from?)
-    # see data mapping for full details 
   And Archivematica copies the dataset from the temporary directory to a processing directory
   And Archivematica provides a response indicating the copy was successful
   And the Archivematica-channel-adaptor tells archivematica to start the AM Transfer process
     # as per /api/transfer/approve/ described by https://wiki.archivematica.org/Archivematica_API
-  And Archivematica applies the default processing configuration
-    # currently not working due to: https://github.com/JiscRDSS/archivematica/issues/8
-    # later we must add scenarios where an alternative processing configuration is provided with the dataset
+  And Archivematica applies the "automated" processing configuration
 
 # not yet implemented: (although I'm wondering if this should really be done by channel adaptor at all?)   
       # And Archivematica retrieves the Etag checksum for each file 
